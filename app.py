@@ -55,8 +55,8 @@ def deferred_acceptance(students, schools):
 
 @st.cache_data
 def load_sample():
-    studentSample = pd.read_csv("samples/student_sample.csv")
-    schoolSample = pd.read_csv("samples/school_sample.csv")
+    studentSample = pd.read_csv("data/student_sample.csv")
+    schoolSample = pd.read_csv("data/school_sample.csv")
     return studentSample, schoolSample
 
 def main():
