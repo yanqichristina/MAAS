@@ -53,27 +53,27 @@ def deferred_acceptance(students, schools):
     
     return student_assignments, school_enrollments
 
-# @st.cache_data
-# def load_sample():
-#     studentSample = pd.read_csv("samples/student_sample.csv")
-#     schoolSample = pd.read_csv("samples/school_sample.csv")
-#     return studentSample, schoolSample
+@st.cache_data
+def load_sample():
+    studentSample = pd.read_csv("samples/student_sample.csv")
+    schoolSample = pd.read_csv("samples/school_sample.csv")
+    return studentSample, schoolSample
 
 def main():
     st.title("Student-School Matching for Exchange Programs")
-    # studentSample, schoolSample = load_sample()
+    studentSample, schoolSample = load_sample()
     
     st.header("Upload Student Data")
     student_file = st.file_uploader("Upload CSV file with student data (name, GPA, preferences as comma-separated values)", type=["csv"])
     if student_file is None:
         st.write("Example:")
-        # st.write(studentSample)
+        st.write(studentSample)
 
     st.header("Upload School Data")
     school_file = st.file_uploader("Upload CSV file with school data (name, quota)", type=["csv"])
     if school_file is None:
         st.write("Example:")
-        # st.write(schoolSample)
+        st.write(schoolSample)
     
     if st.button("Run Matching"):
         if student_file and school_file:
