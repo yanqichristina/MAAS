@@ -1,0 +1,8 @@
+﻿name,GPA,choice1,choice2,choice3,choice4,choice5
+Student A,5,Boston University (United States),University of Virginia (United States),"Boston College, Massachusetts (United States)",,
+Student B,4.88,E0000000008 - The University of Hong Kong (Hong Kong),City University of Hong Kong,E0000000009 - The Chinese University of Hong Kong (Hong Kong),E0000000629 - The University of Melbourne (Australia),E0000000637 - The Australian National University (Australia)
+Student C,4.83,E0000001224 - University of Warwick (United Kingdom),E0000001197 - Loughborough University (United Kingdom),E0000000628 - Monash University (Australia),,
+Student D,4,E0000002466 - Leiden University (Netherlands),Erasmus University (Netherlands),University of Waterloo (Canada),E0000000416 - Utrecht University (Netherlands),University of Leeds (United Kingdom)
+Student E,4,E0000002466 - Leiden University (Netherlands),University of Amsterdam (Netherlands),E0000000416 - Utrecht University (Netherlands),E0000001122 - University of Mannheim (Germany),E0000001060 - University of Copenhagen (Denmark)
+Student F,4,"E0000000544 - Korea University (Korea, Republic of)",E0000000623 - The University of Queensland (Australia),E0000000570 - University of Stockholm (Sweden),E0000001122 - University of Mannheim (Germany),E0000000421 - University of Amsterdam (Netherlands)
+Student G,4,E0000000636 - The University of Adelaide (Australia),E0000000572 - Lund University (Sweden),E0000000570 - University of Stockholm (Sweden),E0000000629 - The University of Melbourne (Australia),E0000000628 - Monash University (Australia)

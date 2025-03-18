@@ -1,0 +1,11 @@
+﻿name,GPA,choice1,choice2,choice3
+student1,3.8,school1, school2, school3
+student2,3.6,school2, school3, school1
+student3,3.9,school1, school3, school2
+student4,3.7,school3, school2, school1
+student5,3.5,school1, school2, school3
+student6,3.4,school2, school1, school3
+student7,3.2,school3, school1, school2
+student8,3.1,school1, school2, school3
+student9,3.3,school2, school3, school1
+student10,3,school3, school1, school2
