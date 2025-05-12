@@ -116,3 +116,6 @@ dmypy.json
 
 # MacOS
 .DS_Store
+
+# User credential files
+config.yaml
