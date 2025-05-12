@@ -16,11 +16,11 @@ st.logo("image/logo_full_black.png", size="large", icon_image="image/logo_icon_b
 @st.cache_data
 def load_sample(lang_code):
     if lang_code == "en":
-        teacherSample = pd.read_csv("data/course/teacher_sample_en.csv")
-        courseSample = pd.read_csv("data/course/course_sample_en.csv")
+        teacherSample = pd.read_csv("data_sample/course/teacher_sample_en.csv")
+        courseSample = pd.read_csv("data_sample/course/course_sample_en.csv")
     elif lang_code == "zh":
-        teacherSample = pd.read_csv("data/course/teacher_sample_zh.csv")
-        courseSample = pd.read_csv("data/course/course_sample_zh.csv")
+        teacherSample = pd.read_csv("data_sample/course/teacher_sample_zh.csv")
+        courseSample = pd.read_csv("data_sample/course/course_sample_zh.csv")
     return teacherSample, courseSample
 
 
