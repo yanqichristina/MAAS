@@ -124,9 +124,9 @@ def update_user_profile():
 
 
 # %% Page definitions
-login_page = st.Page(login, title="Log in", icon=":material/login:")
-logout_page = st.Page(logout, title="Log out", icon=":material/logout:")
-reset_pwd_page = st.Page(reset_pwd, title="Reset Password", icon=":material/lock_reset:")
+# login_page = st.Page(login, title="Log in", icon=":material/login:")
+# logout_page = st.Page(logout, title="Log out", icon=":material/logout:")
+# reset_pwd_page = st.Page(reset_pwd, title="Reset Password", icon=":material/lock_reset:")
 # update_user_profile_page = st.Page(update_user_profile, title="Update Profile", icon=":material/account_circle:")
 home = st.Page("pages/1_home.py", title="Home", icon=":material/home:", default=True)
 sep_page = st.Page("pages/2_sep.py", title="SEP", icon=":material/school:") 
@@ -137,17 +137,17 @@ exam_page = st.Page("pages/4_exam_scu.py", title="Exam", icon=":material/assignm
 
 st.set_page_config(layout="wide")
 
-if "logged_in" not in st.session_state:
-    st.session_state.logged_in = False
+# if "logged_in" not in st.session_state:
+#     st.session_state.logged_in = False
 
-if st.session_state.get('logged_in') is True:
-    pg = st.navigation(
-        {   
-            "Modules": [home, course_page, exam_page, sep_page],
-            "Settings": [logout_page, reset_pwd_page],
-        }
-    )
-else:
-    pg = st.navigation([login_page])
+# if st.session_state.get('logged_in') is True:
+pg = st.navigation(
+    {   
+        "Modules": [home, course_page, exam_page, sep_page],
+        # "Settings": [logout_page, reset_pwd_page],
+    }
+)
+# else:
+#     pg = st.navigation([login_page])
 
 pg.run()
