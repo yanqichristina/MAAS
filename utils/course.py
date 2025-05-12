@@ -1,4 +1,4 @@
-import streamlit as st
+# import streamlit as st
 
 class Teacher:
     def __init__(self, name, lang, required_classes, preferred_courses):

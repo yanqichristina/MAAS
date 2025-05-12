@@ -1,0 +1,16 @@
+cookie:
+  expiry_days: 1
+  key: ${COOKIE_SIGNATURE_KEY}
+  name: maas_session
+credentials:
+  usernames:
+    chris:
+      email: jsmith@gmail.com
+      failed_login_attempts: 0
+      logged_in: true
+      name: John Smith
+      password: $2b$12$zSIEFxw9T7pMnjDYKgLg0.VPnRxowysC3RsSLT4sFiRh4jTvcsE76
+    joe:
+      email: rbriggs@gmail.com
+      name: Rebecca Briggs
+      password: $2b$12$pSclsyJ7XYYQnNT1TovNbexbqqXxS4AmXVWs5WZ5Iae9WP8hhaw56

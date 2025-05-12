@@ -1,9 +1,12 @@
+
+
 translations_home = {
     "en": {
         "title": "Welcome to MatchME!",
         "select_module": "Select Module",
         "sep": "Student Exchange Program",
-        "course": "Course Scheduling",
+        "course": "Teaching Arrangement",
+        "exam": "Exam Invigilator Assignment",
         "go": "Go"
     },
     "zh": {
@@ -11,6 +14,7 @@ translations_home = {
         "select_module": "选择模块",
         "sep": "交换生项目",
         "course": "排课",
+        "exam": "监考安排",
         "go": "开始"
     }
 }
@@ -18,10 +22,15 @@ translations_home = {
 translations_sep = {
     "en": {
         "title": "Student Exchange Programs",
-        "upload_student": "Upload Student Data",
-        "upload_school": "Upload School Data",
+        "intro": """Description: Each student selects 1 to 3 schools they want to go for exchange program (in order of preference), 
+            and each school has a quota for exchange students. 
+            The matching assistant match schools with students based on student preferences and GPA.""",
+        "upload_student": "Step 1: Upload Student Data",
+        "upload_student_desc": "Student data includes student names, GPA, and school preferences. Check 'Show example' to view sample data.",
+        "upload_school": "Step 2: Upload School Data",
+        "upload_school_desc": "School data includes school names and quotas. Check 'Show example' to view sample data.",
         "Show example": "Show example",
-        "run_matching": "Run Matching",
+        "run_matching": "Step 3: Run Matching",
         "student_preview:": "Student Assignments Preview:",
         "school_preview:": "School Enrollments Preview:",
         "download_students": "Download Student Assignments",
@@ -31,10 +40,13 @@ translations_sep = {
     },
     "zh": {
         "title": "交换生项目匹配助手",
-        "upload_student": "上传学生数据",
-        "upload_school": "上传学校数据",
+        "intro": "描述：每位学生填报1～3个希望前往交换的学校（按偏好排序），每个学校给定接收交换生的名额。匹配助手根据学生的偏好和GPA来分配交换学校。",
+        "upload_student": "第一步：上传学生数据",
+        "upload_student_desc": "学生数据包含学生姓名、GPA和学校偏好，勾选‘显示样例’查看示例数据。",
+        "upload_school": "第二步：上传学校数据",
+        "upload_school_desc": "学校数据包含学校名称和名额，勾选‘显示样例’查看示例数据。",
         "Show example": "显示样例",
-        "run_matching": "运行匹配",
+        "run_matching": "第三步：运行匹配",
         "student_preview:": "学生分配结果预览:",
         "school_preview:": "学校招生结果预览:",
         "download_students": "下载学生分配结果",
@@ -46,11 +58,21 @@ translations_sep = {
 
 translations_course = {
     "en": {
-        "title": "Course Scheduling",
-        "upload_teacher": "Upload Teacher Data",
-        "upload_course": "Upload Course Data",
+        "title": "Teaching Arrangement",
+        "intro": "Description: This tool helps to assign teachers to courses based on their preferences and required workload.",
+        "upload_course": "Step 1: Upload Course Information",
+        "upload_course_desc": "Course information includes course names and hour requirements. Check 'Show example' to view sample data.",
+        "collect_teacher_preferences": "Step 2: Collect Teacher Preferences (Optional)",
+        "collect_teacher_preferences_desc": "Teacher preferences include teacher names, course preferences, hour requirements, and teaching languages.",
+        "teacher_survey_sample": "Click here to see a Teacher Survey Sample",
+        "survey_platform": "Visit the following free websites to create teacher preference surveys",
+        "survey_platform1": "Wenjuanwang",
+        "survey_platform2": "Tencent Survey",
+        "upload_teacher": "Step 3: Upload Teacher Preferences",
+        "upload_teacher_desc": "Teacher preferences include teacher names, course preferences, hour requirements, and teaching languages. Check 'Show example' to view sample data.",
         "Show example": "Show example",
-        "run_matching": "Run Matching",
+        "run_matching": "Step 4: Run Matching",
+        "run_matching_button": "Run Matching",
         "teacher_preview:": "Teacher Assignments Preview:",
         "course_preview:": "Course Assignments Preview:",
         "download_teachers": "Download Teacher Assignments",
@@ -60,15 +82,226 @@ translations_course = {
     },
     "zh": {
         "title": "排课助手",
-        "upload_teacher": "上传老师数据",
-        "upload_course": "上传课程数据",
+        "intro": "描述：根据老师的授课偏好和课时需求来安排老师授课。",
+        "upload_course": "第一步：上传课程开设信息",
+        "upload_course_desc": "课程开设信息包含课程名称和班次需求，勾选‘显示样例’查看示例数据。",
+        "collect_teacher_preferences": "第二步：收集老师授课偏好（可选）",
+        "collect_teacher_preferences_desc": "老师授课偏好包含老师姓名、课程偏好、课时要求和授课语言。",
+        "teacher_survey_sample": "点击展开问卷示例",
+        "survey_platform": "如有需要，可点击前往以下免费网站创建老师授课偏好问卷",
+        "survey_platform1": "问卷网",
+        "survey_platform2": "腾讯问卷",
+        "upload_teacher": "第二步：上传老师授课偏好",
+        "upload_teacher_desc": "老师授课偏好包含老师姓名、课程偏好、课时要求和授课语言，勾选‘显示样例’查看示例数据。",
         "Show example": "显示样例",
-        "run_matching": "运行匹配",
+        "run_matching": "第三步：运行匹配并下载结果",
+        "run_matching_button": "运行匹配",
         "teacher_preview:": "老师分配结果预览:",
         "course_preview:": "课程分配结果预览:",
         "download_teachers": "下载老师分配结果",
         "download_courses": "下载课程分配结果",
         "error_message": "请上传老师和课程数据文件。",
         "success_message": "匹配完成！"
+    }
+}
+
+translations_teaching_survey = {
+    "en": {
+        "title": "Teacher Survey",
+        "intro": "Please fill out the survey below to help us understand your teaching preferences.",
+        "name": "Name",
+        "preferred_courses": "Preferred Courses",
+        "select_courses": "Select 1 to 3 courses you prefer to teach.",
+        "1st_choice": "Choose your 1st preferred course:",
+        "2nd_choice": "Choose your 2nd preferred course:",
+        "3rd_choice": "Choose your 3rd preferred course:",
+        "required_classes": "Classes Requirement",
+        "select_classes": "Please specify the number of classes you would like to teach:",
+        "warning_message": "You have selected more than 3 classes. Please ensure this aligns with your availability.",
+        "teaching_language": "Teaching Language",
+        "select_language": "Select your preferred teaching language:",
+        "other_language": "Please specify your preferred language:",
+        "additional_request": "Additional Request",
+        "additional_comments": "Please provide any additional preferences or request here:",
+        "preview_results": "Preview Survey Results",
+        "error_message": "Please select at least one preferred course.",
+        "preview_course": "**Preferred Courses:**",
+        "preview_classes": "**Classes Requirement:**",
+        "preview_language": "**Teaching Language:**",
+        "preview_comments": "**Additional request:**",
+        "submit_button": "Submit Survey",
+        "submit_success": "Survey submitted successfully!"
+    },
+    "zh": {
+        "title": "教师问卷",
+        "intro": "请填写以下问卷表，以帮助我们了解您的教学偏好。",
+        "name": "姓名",
+        "preferred_courses": "偏好课程",
+        "select_courses": "选择您希望教授的1-3门课程。",
+        "1st_choice": "选择您教授课程的第一选择：",
+        "2nd_choice": "选择您教授课程的第二选择（选填）：",
+        "3rd_choice": "选择您教授课程的第三选择（选填）：",
+        "required_classes": "课时需求",
+        "select_classes": "请选择您希望教授的班次数量：",
+        "warning_message": "您选择了超过3个班级，请确保这与您的课时需求一致。",
+        "teaching_language": "教学语言",
+        "select_language": "选择您的首选教学语言：",
+        "other_language": "请指定您的首选语言：",
+        "additional_request": "附加要求",
+        "additional_comments": "请在此处提供任何额外的偏好或要求：",
+        "preview_results": "预览问卷结果",
+        "error_message": "请选择至少一门偏好课程。",
+        "preview_course": "**偏好课程:**",
+        "preview_classes": "**课程需求:**",
+        "preview_language": "**教学语言:**",
+        "preview_comments": "**附加要求:**",
+        "submit_button": "提交问卷",
+        "submit_success": "问卷提交成功！"
+    }
+}
+
+translations_exam = {
+    "en": {
+        "title": "Exam Invigilator Assignment",
+        "intro": """Description: This tool helps to assign invigilators for exams based on availability and preferences.
+            Each class has one main proctor and one joint proctor.
+            Each teacher can serve as the main proctor for only 1 course with up to 3 classes,
+            and be the joint proctor for up to 2 classes of any course..""",
+        "upload_exam_schedule": "Step 1: Upload Exam Schedule",
+        "upload_exam_schedule_desc": "Exam schedule includes course name, class_id, teaching faculty, exam date, main proctor department, joint proctor department. Check 'Show example' to view sample data.",
+        "upload_exam_schedule_2": "Upload 2nd Batch Exam Schedule",
+        "course": "Course Name",
+        "teachers": "Teaching Faculty",
+        "class_id": "Class ID",
+        "exam_date": "Exam Date",
+        "main_proctor_faculty": "Main Proctor Department",
+        "joint_proctor_faculty": "Joint Proctor Department",
+        "main_proctor": "Main Proctor",
+        "joint_proctor": "Joint Proctor",
+        "upload_invigilator": "Step 2: Upload Invigilator Information",
+        "upload_invigilator_desc": "Invigilator information includes names, availability, and preferences. Check 'Show example' to view sample data.",
+        "teacher_name": "Teacher Name",
+        "date1": "Unavailable Date 1",
+        "date2": "Unavailable Date 2",
+        "date3": "Unavailable Date 3",
+        "Show example": "Show example",
+        "run_assignment": "Step 3: Run Assignment",
+        "run_assignment_button": "Run Assignment",
+        "invigilator_preview:": "Invigilator Assignments Preview:",
+        "exam_preview:": "Exam Assignments Preview:",
+        "download_invigilators": "Download Invigilator Assignments",
+        "download_exams": "Download Exam Assignments",
+        "error_message": "Please upload both exam schedule and invigilator data files.",
+        "success_message": "Assignment completed!"
+    },
+    "zh": {
+        "title": "监考安排助手",
+        "intro": """描述：
+            每门课程每个教学班需要指派一名主考老师和一名监考老师。
+            每位老师担任主考时最多可以同时主考3个班级，班级授课老师优先作为主考老师。
+            此外会根据老师们的工作量合理分配监考任务。
+            每位老师们可以提供三个无法监考的日期方便安排。""",
+        "upload_exam_schedule": "第一步：上传考试信息",
+        "upload_exam_schedule_desc": "考试信息包括考试课程名称、班次、授课老师、考试日期、主考院系和监考院系，勾选‘显示样例’查看示例数据。",
+        "upload_exam_schedule_2": "添加第二批考试安排",
+        "course": "课程名称",
+        "teachers": "授课老师",
+        "class_id": "教学班",
+        "exam_date": "考试日期",
+        "main_proctor_faculty": "主考院系",
+        "joint_proctor_faculty": "监考院系",
+        "main_proctor": "主考老师",
+        "joint_proctor": "监考老师",
+        "upload_invigilator": "第二步：上传监考人员信息",
+        "upload_invigilator_desc": "监考人员信息包括老师姓名，所属院系以及最多3个不能监考的日期，勾选‘显示样例’查看示例数据。",
+        "teacher_name": "老师姓名",
+        "date1": "不可监考日期1",
+        "date2": "不可监考日期2",
+        "date3": "不可监考日期3",
+        "Show example": "显示样例",
+        "run_assignment": "第三步：运行分配并下载结果",
+        "run_assignment_button": "运行分配",
+        "invigilator_preview:": "监考人员分配结果预览:",
+        "download_invigilators": "下载监考人员分配结果",
+        "error_message": "请上传考试安排和监考人员数据文件。",
+        "success_message": "分配完成！"
+    }
+}
+
+translations_exam_scu = {
+    "en": {
+        "title": "Exam Invigilator Assignment",
+        "intro": """Description: This tool helps to assign invigilators for exams based on availability and preferences.
+            Each class has one main proctor and one joint proctor.
+            Each teacher can serve as the main proctor for only 1 course with up to 3 classes,
+            and be the joint proctor for up to 2 classes of any course..""",
+        "upload_exam_schedule": "Step 1: Upload Exam Schedule",
+        "upload_exam_schedule_desc": "Exam schedule includes course name, class_id, teaching faculty, exam date, main proctor department, joint proctor department. Check 'Show example' to view sample data.",
+        "upload_exam_schedule_2": "Upload 2nd Batch Exam Schedule",
+        "course": "Course Name",
+        "teachers": "Teaching Faculty",
+        "class_id": "Class ID",
+        "exam_date": "Exam Date",
+        "main_proctor_faculty": "Main Proctor Department",
+        "joint_proctor_faculty": "Joint Proctor Department",
+        "main_proctor": "Main Proctor",
+        "joint_proctor": "Joint Proctor",
+        "upload_invigilator": "Step 2: Upload Invigilator Information",
+        "upload_invigilator_desc": "Invigilator information includes names, availability, and preferences. Check 'Show example' to view sample data.",
+        "teacher_name": "Teacher Name",
+        "date1": "Unavailable Date 1",
+        "date2": "Unavailable Date 2",
+        "date3": "Unavailable Date 3",
+        "Show example": "Show example",
+        "run_assignment": "Step 3: Run Assignment",
+        "run_assignment_button": "Run Assignment",
+        "invigilator_preview:": "Invigilator Assignments Preview:",
+        "exam_preview:": "Exam Assignments Preview:",
+        "download_invigilators": "Download Invigilator Assignments",
+        "download_exams": "Download Exam Assignments",
+        "error_message": "Please upload both exam schedule and invigilator data files.",
+        "success_message": "Assignment completed!"
+    },
+    "zh": {
+        "title": "监考安排助手",
+        "intro": """描述：
+            每门课程每个教学班需要指派一名主考老师和一名监考老师。
+            每位老师担任主考时最多可以同时主考3个班级，班级授课老师优先作为主考老师。
+            此外会根据老师们的工作量合理分配监考任务。
+            每位老师们可以提供三个无法监考的日期方便安排。""",
+        "exam_name": "请输入考试名称，如：2024-2025春季学期期末提前考试",
+        "upload_exam_schedule": "第一步：上传考试信息",
+        "upload_exam_schedule_desc": "考试信息包括考试课程名称、班次、授课老师、考试日期、主考院系和监考院系，勾选‘显示样例’查看示例数据。",
+        "upload_exam_schedule_2": "添加第二批考试安排",
+        "course": "课程名",
+        "teachers": "上课教师",
+        "class_id": "课序号",
+        "student_count": "选课人数",
+        "exam_date": "考试日期",
+        "exam_time": "考试时间",
+        "exam_location": "校区",
+        "exam_id": "考试序号",
+        "main_proctor_faculty": "主考院系",
+        "joint_proctor_faculty": "监考院系",
+        "main_proctor": "主考老师",
+        "joint_proctor": "监考老师",
+        "upload_invigilator": "第二步：上传监考人员信息",
+        "upload_invigilator_desc": "监考人员信息包括老师姓名，所属院系以及最多3个不能监考的日期，勾选‘显示样例’查看示例数据。",
+        "teacher_name": "姓名",
+        "exemption": "豁免",
+        "workload": "总监考工作量",
+        "preferred_location": "首选校区",
+        "date1": "不可监考日期1",
+        "date2": "不可监考日期2",
+        "date3": "不可监考日期3",
+        "assigned_duties": "本次分配监考任务",
+        "Show example": "显示样例",
+        "run_assignment": "第三步：运行分配并下载结果",
+        "run_assignment_button": "运行分配",
+        "invigilator_preview:": "监考人员分配结果预览:",
+        "download_classes": "下载监考人员分配结果",
+        "download_teachers": "下载老师监考工作量",
+        "error_message": "请上传考试安排和监考人员数据文件。",
+        "success_message": "分配完成！"
     }
 }
