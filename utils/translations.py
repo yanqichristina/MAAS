@@ -265,15 +265,15 @@ translations_exam_scu = {
     "zh": {
         "title": "监考安排助手",
         "intro": """描述：
-            每门课程每个教学班需要指派一名主考老师和一名监考老师。
-            每位老师担任主考时最多可以同时主考3个班级，班级授课老师优先作为主考老师。
-            此外会根据老师们的工作量合理分配监考任务。
-            每位老师们可以提供三个无法监考的日期方便安排。""",
-        "exam_name": "请输入考试名称，如：2024-2025春季学期期末提前考试",
+            本模块协助教学管理人员根据考试安排合理分配监考老师。
+            支持多个教学班合并成一个考试班， 基于考生人数分派监考老师。班级授课老师优先作为主考老师。
+            平衡老师们的工作量，结合校区偏好，时间冲突等需求合理分派监考任务。""",
+        "exam_name": "请输入考试名称，如：2024-2025春季期末提前考试",
         "upload_exam_schedule": "第一步：上传考试信息",
-        "upload_exam_schedule_desc": "考试信息包括考试课程名称、班次、授课老师、考试日期、主考院系和监考院系，勾选‘显示样例’查看示例数据。",
+        "upload_exam_schedule_desc": "考试信息包括考试课程名称、班次、授课老师、学生人数、考试校区、考试日期和时间，勾选‘显示样例’查看示例数据。",
         "upload_exam_schedule_2": "添加第二批考试安排",
         "course": "课程名",
+        "course_id": "课程号",
         "teachers": "上课教师",
         "class_id": "课序号",
         "student_count": "选课人数",
@@ -288,7 +288,9 @@ translations_exam_scu = {
         "upload_invigilator": "第二步：上传监考人员信息",
         "upload_invigilator_desc": "监考人员信息包括老师姓名，所属院系以及最多3个不能监考的日期，勾选‘显示样例’查看示例数据。",
         "teacher_name": "姓名",
-        "exemption": "豁免",
+        "exempted_main": "豁免主考",
+        "exempted_joint": "豁免监考",
+        "special_needs": "特殊需求",
         "workload": "总监考工作量",
         "preferred_location": "首选校区",
         "date1": "不可监考日期1",
@@ -299,6 +301,7 @@ translations_exam_scu = {
         "run_assignment": "第三步：运行分配并下载结果",
         "run_assignment_button": "运行分配",
         "invigilator_preview:": "监考人员分配结果预览:",
+        "workload_preview:": "老师工作量预览:",
         "download_classes": "下载监考人员分配结果",
         "download_teachers": "下载老师监考工作量",
         "error_message": "请上传考试安排和监考人员数据文件。",

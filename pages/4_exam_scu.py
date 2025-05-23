@@ -48,9 +48,9 @@ if exam1_file is None:
         st.write(exam1Sample.head())
 else:
     exam1_info = pd.read_csv(exam1_file)
-    st.write(exam1_info.tail())
+    st.write(exam1_info)
     exam1_classes = [
-        Class(row[translations[lang_code]['course']],
+        Class(row[translations[lang_code]['course']]+ ' (' +str(row[translations[lang_code]['course_id']]) + ')',
               row[translations[lang_code]['class_id']],
               row[translations[lang_code]['teachers']].split(','),  # Assuming teachers are comma-separated
               row[translations[lang_code]['student_count']],
@@ -65,21 +65,21 @@ else:
     exam2_file = None
 
 # allow uploading of 2nd batch exam schedule
-if st.button(translations[lang_code]['upload_exam_schedule_2'], key="exam2_schedule"):
-    exam2_file = st.file_uploader("", type=["csv"], key="exam2_schedule_file")
-    if exam2_file is not None:
-        exam2_info = pd.read_csv(exam2_file)
-        exam2_classes = [
-            {
-                'course': row[translations[lang_code]['course']],
-                'teachers': row[translations[lang_code]['teachers']].split(','),  # Assuming teachers are comma-separated
-                'class_id': row[translations[lang_code]['class_id']],
-                'exam_date': row[translations[lang_code]['exam_date']],
-                'main_proctor_faculty': row[translations[lang_code]['main_proctor_faculty']],
-                'joint_proctor_faculty': row[translations[lang_code]['joint_proctor_faculty']],
-            }
-            for _, row in exam2_info.iterrows()
-        ]
+# if st.button(translations[lang_code]['upload_exam_schedule_2'], key="exam2_schedule"):
+#     exam2_file = st.file_uploader("", type=["csv"], key="exam2_schedule_file")
+#     if exam2_file is not None:
+#         exam2_info = pd.read_csv(exam2_file)
+#         exam2_classes = [
+#             {
+#                 'course': row[translations[lang_code]['course']],
+#                 'teachers': row[translations[lang_code]['teachers']].split(','),  # Assuming teachers are comma-separated
+#                 'class_id': row[translations[lang_code]['class_id']],
+#                 'exam_date': row[translations[lang_code]['exam_date']],
+#                 'main_proctor_faculty': row[translations[lang_code]['main_proctor_faculty']],
+#                 'joint_proctor_faculty': row[translations[lang_code]['joint_proctor_faculty']],
+#             }
+#             for _, row in exam2_info.iterrows()
+#         ]
 
 #------------------------------------------------#
 #  Step 2: Upload invigilator information        #
@@ -94,16 +94,35 @@ if teacher_file is None:
         st.write(teacherSample.head())
 else:
     teacher_info = pd.read_csv(teacher_file)
-    # remove rows with non-empty column '豁免'
-    teacher_info = teacher_info[teacher_info[translations[lang_code]['exemption']].isna()]
+    st.write(teacher_info)
+    # remove rows with non-empty column '豁免主考'
+    # teacher_info = teacher_info[teacher_info[translations[lang_code]['exempted_main']].isna()]
     teachers = [
         Teacher(row[translations[lang_code]['teacher_name']], 
                 row[translations[lang_code]['workload']],
+                row[translations[lang_code]['exempted_main']],
+                row[translations[lang_code]['exempted_joint']],
                 row[translations[lang_code]['preferred_location']],
+                row[translations[lang_code]['special_needs']],
                 [row[translations[lang_code]['date1']], row[translations[lang_code]['date2']], row[translations[lang_code]['date3']]])
         for _, row in teacher_info.iterrows()
     ]
-    st.write(teacher_info.tail())
+    
+    # teachers_df = [
+    #     {
+    #         'name': t.name,
+    #         'workload': t.workload,
+    #         'exemption_main': t.exempted_main,
+    #         'exemption_joint': t.exempted_joint,
+    #         'preferred_location': t.preferred_location,
+    #         'special_needs': t.special_needs,
+    #         'unavailable_date': t.unavailable_dates
+    #     }
+    #     for t in teachers
+    # ]
+    # teachers_df = pd.DataFrame(teachers_df)
+    # teachers_df = teachers_df[teachers_df['special_needs'].str.contains('不排早八', na=False)]
+    # st.write(teachers_df)
 
 #------------------------------------------------#
 #  Step 3: Run assignment                        #
@@ -120,24 +139,26 @@ if st.button(translations[lang_code]['run_assignment_button']):
         # Convert Class object to DataFrames
         exam1_classes = [
             {
-                'course': cls.course,
-                'class_id': cls.class_id,
-                'teachers': ', '.join(cls.teachers),
-                'stu_count': cls.stu_count,
-                'exam_date': cls.exam_date,
-                'exam_time': cls.exam_time,
-                'exam_location': cls.exam_location,
-                'exam_id': cls.exam_id,
-                # 'main_proctor_faculty': cls.main_proctor_faculty,
-                # 'joint_proctor_faculty': cls.joint_proctor_faculty,
-                'main_proctor': cls.main_proctor,
-                'joint_proctor': cls.joint_proctor
+            'course': cls.course.split(' (')[0],  # Extract course name
+            'course_id': cls.course.split(' (')[1][:-1],  # Extract course ID
+            'class_id': cls.class_id,
+            'teachers': ', '.join(cls.teachers),
+            'stu_count': cls.stu_count,
+            'exam_date': cls.exam_date,
+            'exam_time': cls.exam_time,
+            'exam_location': cls.exam_location,
+            'exam_id': cls.exam_id,
+            # 'main_proctor_faculty': cls.main_proctor_faculty,
+            # 'joint_proctor_faculty': cls.joint_proctor_faculty,
+            'main_proctor': cls.main_proctor,
+            'joint_proctor': cls.joint_proctor
             }
             for cls in exam1_classes
         ]
         exam1_classes_df = pd.DataFrame(exam1_classes)
         exam1_classes_df.rename(columns={
             'course': translations[lang_code]['course'],
+            'course_id': translations[lang_code]['course_id'],
             'class_id': translations[lang_code]['class_id'],
             'teachers': translations[lang_code]['teachers'],
             'stu_count': translations[lang_code]['student_count'],
@@ -151,10 +172,15 @@ if st.button(translations[lang_code]['run_assignment_button']):
             'joint_proctor': translations[lang_code]['joint_proctor'],
         }, inplace=True)
         exam1_csv = exam1_classes_df.to_csv(index=False, encoding="utf-8-sig").encode("utf-8-sig")
+        
         # Display results
         st.subheader(translations[lang_code]['invigilator_preview:'])
+        def highlight_columns(s):
+            return ['background-color: lightyellow' if col in [translations[lang_code]['main_proctor'], translations[lang_code]['joint_proctor']] else '' for col in s.index]
+
         st.write(exam1_classes_df[[
             translations[lang_code]['course'],
+            translations[lang_code]['course_id'],
             translations[lang_code]['class_id'],
             translations[lang_code]['teachers'],
             translations[lang_code]['student_count'],
@@ -164,7 +190,7 @@ if st.button(translations[lang_code]['run_assignment_button']):
             translations[lang_code]['exam_id'],
             translations[lang_code]['main_proctor'],
             translations[lang_code]['joint_proctor']
-            ]])
+            ]].style.apply(highlight_columns, axis=1))
         
         today = pd.Timestamp.now().strftime("%y%m%d")
         st.download_button(translations[lang_code]["download_classes"], 
@@ -172,33 +198,48 @@ if st.button(translations[lang_code]['run_assignment_button']):
                            f"{exam_name}监考安排{today}.csv", 
                            "text/csv")
 
-        if exam2_file is not None:
-            assign_proctors(teachers, exam2_classes)
-            exam2_csv = exam2_classes.to_csv(index=False, encoding="utf-8-sig").encode("utf-8-sig")
-            st.write(pd.DataFrame(exam2_classes))
-            st.download_button(translations[lang_code]["download_classes"], 
-                               exam2_csv, 
-                               "proctor_assignments2.csv", 
-                               "text/csv")
+        # if exam2_file is not None:
+        #     assign_proctors(teachers, exam2_classes)
+        #     exam2_csv = exam2_classes.to_csv(index=False, encoding="utf-8-sig").encode("utf-8-sig")
+        #     st.write(pd.DataFrame(exam2_classes))
+        #     st.download_button(translations[lang_code]["download_classes"], 
+        #                        exam2_csv, 
+        #                        "proctor_assignments2.csv", 
+        #                        "text/csv")
 
+        st.subheader(translations[lang_code]['workload_preview:'])
         # Sum up invigilation duties assigned for each teacher, and append to the teacher_info DataFrame
         teacher_info[exam_name] = 0
+        teacher_info[f'{exam_name}主考'] = 0
+        teacher_info[f'{exam_name}监考'] = 0
         for teacher in teachers:
+            teacher_info.loc[teacher_info[translations[lang_code]['teacher_name']] == teacher.name, f'{exam_name}主考'] = teacher.main_proctor_count
+            teacher_info.loc[teacher_info[translations[lang_code]['teacher_name']] == teacher.name, f'{exam_name}监考'] = teacher.joint_proctor_count
             teacher_info.loc[teacher_info[translations[lang_code]['teacher_name']] == teacher.name, exam_name] = teacher.main_proctor_count + teacher.joint_proctor_count
             # Update workload in teacher_info DataFrame
-            teacher_info.loc[teacher_info[translations[lang_code]['teacher_name']] == teacher.name, '本期监考次数'] += teacher.main_proctor_count + teacher.joint_proctor_count
+            teacher_info.loc[teacher_info[translations[lang_code]['teacher_name']] == teacher.name, '本期监考总数'] += teacher.main_proctor_count + teacher.joint_proctor_count
             teacher_info.loc[teacher_info[translations[lang_code]['teacher_name']] == teacher.name, translations[lang_code]['workload']] = teacher.workload
-        st.write(teacher_info[[
-            translations[lang_code]['teacher_name'],
-            translations[lang_code]['workload'],
-            translations[lang_code]['preferred_location'],
-            exam_name
-        ]])
+        # st.write(teacher_info[[
+        #     translations[lang_code]['teacher_name'],
+        #     translations[lang_code]['workload'],
+        #     translations[lang_code]['preferred_location'],
+        #     f'{exam_name}主考',
+        #     f'{exam_name}监考',
+        #     exam_name]])
 
-        # put the column exam_name before the column '2024监考总数‘
+        # put the column exam_name before the column '本期监考总数‘
         cols = list(teacher_info.columns)
-        cols.insert(cols.index('2024监考总数'), cols.pop(cols.index(exam_name)))
+        cols.insert(cols.index('本期监考总数'), cols.pop(cols.index(exam_name)))
         teacher_info = teacher_info[cols]
+
+        # Convert all float type columns to integer while keeping None values
+        float_cols = teacher_info.select_dtypes(include=['float']).columns
+        teacher_info[float_cols] = teacher_info[float_cols].apply(lambda x: x.round().astype('Int64'))
+        
+        def highlight_exam_name(s):
+            return ['background-color: lightyellow' if col == exam_name else '' for col in s.index]
+
+        st.write(teacher_info.style.apply(highlight_exam_name, axis=1))
 
         # Download the updated teacher information
         teacher_csv = teacher_info.to_csv(index=False, encoding="utf-8-sig").encode("utf-8-sig")
@@ -209,5 +250,3 @@ if st.button(translations[lang_code]['run_assignment_button']):
         
         # Display success message
         st.success(translations[lang_code]['success_message'])
-
-
