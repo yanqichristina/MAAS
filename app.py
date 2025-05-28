@@ -128,10 +128,10 @@ def update_user_profile():
 # logout_page = st.Page(logout, title="Log out", icon=":material/logout:")
 # reset_pwd_page = st.Page(reset_pwd, title="Reset Password", icon=":material/lock_reset:")
 # update_user_profile_page = st.Page(update_user_profile, title="Update Profile", icon=":material/account_circle:")
-home = st.Page("pages/1_home.py", title="Home", icon=":material/home:", default=True)
-sep_page = st.Page("pages/2_sep.py", title="SEP", icon=":material/school:") 
-course_page = st.Page("pages/3_course.py", title="Course", icon=":material/book:")
-exam_page = st.Page("pages/4_exam_scu.py", title="Exam", icon=":material/assignment:")
+home = st.Page("pages/1_home.py", title="主页", icon=":material/home:", default=True)
+sep_page = st.Page("pages/2_sep.py", title="交换生项目", icon=":material/school:") 
+course_page = st.Page("pages/3_course.py", title="排课", icon=":material/book:")
+exam_page = st.Page("pages/4_exam_scu.py", title="排监考", icon=":material/assignment:")
 
 
 

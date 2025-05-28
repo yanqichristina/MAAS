@@ -18,7 +18,7 @@ set_layout()
 st.logo("image/logo_full_black.png", size="large", icon_image="image/logo_icon_black.png")
 
 
-@st.cache_data
+# @st.cache_data
 def load_sample():
     if lang_code == "en":
         teacherSample = pd.read_csv("data_sample/exam/teacher_sample_en.csv")
@@ -133,6 +133,31 @@ st.subheader(translations[lang_code]['run_assignment'])
 if st.button(translations[lang_code]['run_assignment_button']):
     if exam1_file is None or teacher_info is None:
         st.error(translations[lang_code]['error_message'])
+        exam1_classes = [
+            Class(row[translations[lang_code]['course']]+ ' (' +str(row[translations[lang_code]['course_id']]) + ')',
+                row[translations[lang_code]['class_id']],
+                row[translations[lang_code]['teachers']].split(','),  # Assuming teachers are comma-separated
+                row[translations[lang_code]['student_count']],
+                row[translations[lang_code]['exam_date']],
+                row[translations[lang_code]['exam_time']],
+                row[translations[lang_code]['exam_location']]
+                # 'main_proctor_faculty': row[translations[lang_code]['main_proctor_faculty']],
+                # 'joint_proctor_faculty': row[translations[lang_code]['joint_proctor_faculty']],
+            )
+            for _, row in exam1Sample.iterrows()
+        ]
+
+        teachers = [
+            Teacher(row[translations[lang_code]['teacher_name']], 
+                    row[translations[lang_code]['workload']],
+                    row[translations[lang_code]['exempted_main']],
+                    row[translations[lang_code]['exempted_joint']],
+                    row[translations[lang_code]['preferred_location']],
+                    row[translations[lang_code]['special_needs']],
+                    [row[translations[lang_code]['date1']], row[translations[lang_code]['date2']], row[translations[lang_code]['date3']]])
+            for _, row in teacherSample.iterrows()
+        ]
+    
     else:
         # Assign proctors for both exam batches
         assign_proctors(teachers, exam1_classes)
@@ -194,9 +219,9 @@ if st.button(translations[lang_code]['run_assignment_button']):
         
         today = pd.Timestamp.now().strftime("%y%m%d")
         st.download_button(translations[lang_code]["download_classes"], 
-                           exam1_csv, 
-                           f"{exam_name}监考安排{today}.csv", 
-                           "text/csv")
+                            exam1_csv, 
+                            f"{exam_name}监考安排{today}.csv", 
+                            "text/csv")
 
         # if exam2_file is not None:
         #     assign_proctors(teachers, exam2_classes)
@@ -244,9 +269,9 @@ if st.button(translations[lang_code]['run_assignment_button']):
         # Download the updated teacher information
         teacher_csv = teacher_info.to_csv(index=False, encoding="utf-8-sig").encode("utf-8-sig")
         st.download_button(translations[lang_code]["download_teachers"], 
-                           teacher_csv, 
-                           f"老师监考工作量{today}.csv", 
-                           "text/csv")
+                            teacher_csv, 
+                            f"老师监考工作量{today}.csv", 
+                            "text/csv")
         
         # Display success message
         st.success(translations[lang_code]['success_message'])

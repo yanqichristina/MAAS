@@ -3,7 +3,7 @@ from utils.translations import translations_home as translations
 from utils.layout import set_layout
 
 set_layout()
-st.logo("image/logo_full_black.png", size="large", icon_image="image/logo_icon_black.png")
+st.logo("image/logo_full_black.png", size="large", link="https://nexmatch.co", icon_image="image/logo_icon_black.png")
 
 st.markdown(
     """
@@ -30,14 +30,17 @@ st.session_state["lang_code"] = lang_code
 modulelist = [translations[lang_code]["sep"], translations[lang_code]["course"]]
 
 
+# To make the padding adaptable to the column (card) width, use relative units like 'em', '%', or 'vw'.
+# Here, padding is set as a percentage of the button width for adaptability.
+
 button_style = """
     <style>
     .custom-button {
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 10px;
-        font-size: 1.2vw;
+        padding: 6% 0; /* Top/bottom padding is 6% of button width, left/right is 0 */
+        font-size: clamp(1.2em, 30vw, 1.6em); /* Responsive font size */
         font-weight: bold;
         color: #007bff;
         background-color: #f8f9fa;
@@ -45,7 +48,7 @@ button_style = """
         border-radius: 10px;
         text-align: center;
         text-decoration: none;
-        width: 75%;
+        width: 80%;
         height: 3cm;
         cursor: pointer;
         flex-direction: column;

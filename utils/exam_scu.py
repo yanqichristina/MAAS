@@ -108,7 +108,7 @@ def assign_proctors(teachers, classes):
             
     # Assign main and joint proctors for each exam class
     exams = {}
-    for cls in classes:
+    for cls in classes:    
         if cls.exam_id not in exams:
             exams[cls.exam_id] = []
         exams[cls.exam_id].append(cls)
@@ -235,7 +235,9 @@ def assign_proctors(teachers, classes):
                 teacher.workload += 1
                 break
 
-    
+    # for c in classes:
+    #     st.write(cls.course, cls.class_id, cls.main_proctor, cls.joint_proctor)
+
     # Assign joint proctor for each exam_id
     for exam in exam_classes_list:
         exam_classes = exam["exam_classes"]
@@ -267,6 +269,7 @@ def assign_proctors(teachers, classes):
                             other_teachers.remove(teacher)
                         break
                     if cls.joint_proctor is not None:
+                        # st.write(teacher.name, cls.course, cls.class_id, cls.joint_proctor)
                         if teacher.name in cls.joint_proctor:
                             if teacher in teaching_teachers:
                                 teaching_teachers.remove(teacher)

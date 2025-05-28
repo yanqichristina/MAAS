@@ -14,7 +14,7 @@ translations_home = {
         "select_module": "选择模块",
         "sep": "交换生项目",
         "course": "排课",
-        "exam": "监考安排",
+        "exam": "排监考",
         "go": "开始"
     }
 }
@@ -195,7 +195,7 @@ translations_exam = {
         "success_message": "Assignment completed!"
     },
     "zh": {
-        "title": "监考安排助手",
+        "title": "排监考助手",
         "intro": """描述：
             每门课程每个教学班需要指派一名主考老师和一名监考老师。
             每位老师担任主考时最多可以同时主考3个班级，班级授课老师优先作为主考老师。
@@ -213,7 +213,7 @@ translations_exam = {
         "main_proctor": "主考老师",
         "joint_proctor": "监考老师",
         "upload_invigilator": "第二步：上传监考人员信息",
-        "upload_invigilator_desc": "监考人员信息包括老师姓名，所属院系以及最多3个不能监考的日期，勾选‘显示样例’查看示例数据。",
+        "upload_invigilator_desc": "监考人员信息包括老师姓名，首选校区以及无法监考的日期等，勾选‘显示样例’查看示例数据。",
         "teacher_name": "老师姓名",
         "date1": "不可监考日期1",
         "date2": "不可监考日期2",
@@ -223,7 +223,7 @@ translations_exam = {
         "run_assignment_button": "运行分配",
         "invigilator_preview:": "监考人员分配结果预览:",
         "download_invigilators": "下载监考人员分配结果",
-        "error_message": "请上传考试安排和监考人员数据文件。",
+        "error_message": "没有检测到考试安排和监考人员数据文件。以下结果为样例数据试运行结果。",
         "success_message": "分配完成！"
     }
 }
@@ -263,7 +263,7 @@ translations_exam_scu = {
         "success_message": "Assignment completed!"
     },
     "zh": {
-        "title": "监考安排助手",
+        "title": "排监考助手",
         "intro": """描述：
             本模块协助教学管理人员根据考试安排合理分配监考老师。
             支持多个教学班合并成一个考试班， 基于考生人数分派监考老师。班级授课老师优先作为主考老师。
@@ -286,7 +286,7 @@ translations_exam_scu = {
         "main_proctor": "主考老师",
         "joint_proctor": "监考老师",
         "upload_invigilator": "第二步：上传监考人员信息",
-        "upload_invigilator_desc": "监考人员信息包括老师姓名，所属院系以及最多3个不能监考的日期，勾选‘显示样例’查看示例数据。",
+        "upload_invigilator_desc": "监考人员信息包括老师姓名，监考工作量以及无法监考的日期等，勾选‘显示样例’查看示例数据。",
         "teacher_name": "姓名",
         "exempted_main": "豁免主考",
         "exempted_joint": "豁免监考",
