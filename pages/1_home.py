@@ -20,7 +20,7 @@ st.markdown(
 st.markdown("<br><br>", unsafe_allow_html=True)
 
 with st.sidebar:
-    lang = st.selectbox("Select Language / 选择语言", ["中文", "English"])
+    lang = st.selectbox("Select Language / 选择语言", ["中文", "English"], index=1)
 if lang == "English":
     lang_code = "en"    
 elif lang == "中文":
@@ -39,22 +39,21 @@ button_style = """
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 6% 0; /* Top/bottom padding is 6% of button width, left/right is 0 */
-        font-size: clamp(1.2em, 30vw, 1.6em); /* Responsive font size */
+        padding: 4% 8%; /* Top/bottom padding is 6% of button width, left/right is 0 */
+        font-size: clamp(0.8em, 25vw, 1.2em); /* Responsive font size */
         font-weight: bold;
         color: #007bff;
         background-color: #f8f9fa;
         border: none;
-        border-radius: 10px;
         text-align: center;
         text-decoration: none;
-        width: 80%;
-        height: 3cm;
+        width: 60%;
         cursor: pointer;
         flex-direction: column;
         position: relative;
         overflow: hidden;
         box-sizing: border-box;
+        margin: 0 auto; /* Center the button horizontally */
     }
     .custom-button:hover {
         background-color: blue;
@@ -73,25 +72,21 @@ button_style = """
 # Use custom HTML buttons with JavaScript for user interactions
 st.markdown(button_style, unsafe_allow_html=True)
 
-col1, col2, col3 = st.columns(3)
 
-with col1:
-    st.markdown(
-        f'<a href="?page=course" class="custom-button" target="_self">{translations[lang_code]["course"]}</a>',
-        unsafe_allow_html=True,
-    )
+st.markdown(
+    f'<a href="?page=course" class="custom-button" target="_self">{translations[lang_code]["course"]}</a>',
+    unsafe_allow_html=True,
+)
 
-with col2:
-    st.markdown(
-        f'<a href="?page=exam" class="custom-button" target="_self">{translations[lang_code]["exam"]}</a>',
-        unsafe_allow_html=True,
-    )
+st.markdown(
+    f'<a href="?page=exam" class="custom-button" target="_self">{translations[lang_code]["exam"]}</a>',
+    unsafe_allow_html=True,
+)
 
-with col3:
-    st.markdown(
-        f'<a href="?page=sep" class="custom-button" target="_self">{translations[lang_code]["sep"]}</a>',
-        unsafe_allow_html=True,
-    )
+st.markdown(
+    f'<a href="?page=sep" class="custom-button" target="_self">{translations[lang_code]["sep"]}</a>',
+    unsafe_allow_html=True,
+)
 
 # Detect which button was clicked
 query_params = st.query_params
@@ -105,6 +100,6 @@ if "page" in query_params:
     elif clicked_button == "course":
         st.switch_page("pages/3_course.py")
     elif clicked_button == "exam":
-        st.switch_page("pages/4_exam_scu.py")
+        st.switch_page("pages/4_exam_scu2.py")
 
 

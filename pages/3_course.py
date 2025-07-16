@@ -25,35 +25,47 @@ def load_sample(lang_code):
 
 
 lang_code = st.session_state["lang_code"]
+with st.sidebar:
+    lang = st.selectbox("Select Language / 选择语言", ["中文", "English"], index=1 if lang_code == "en" else 0)
+if lang == "English":
+    lang_code = "en"    
+elif lang == "中文":
+    lang_code = "zh"
+st.session_state["lang_code"] = lang_code
 
 st.title(translations[lang_code]["title"])
 st.write(translations[lang_code]["intro"])
-st.write("<div style='height: 2cm;'></div>", unsafe_allow_html=True)
 # Load sample data
 teacherSample, courseSample = load_sample(lang_code)
 
 #--------------------------------------------------#
 #  Step 1: Upload course data                      #
 #--------------------------------------------------#
-
+st.write("<div style='height: 1.5cm;'></div>", unsafe_allow_html=True)
 st.subheader(translations[lang_code]["upload_course"])
 course_file = st.file_uploader(translations[lang_code]["upload_course_desc"], type=["csv"], key="course_file")
 
 if course_file is None:
     if st.checkbox(translations[lang_code]["Show example"], key="course_example"):
         st.write(courseSample.head())
+else:
+    courses_df = pd.read_csv(course_file)
+    st.dataframe(courses_df, height=200)
 
 
 #--------------------------------------------------#
 # Step 2: Upload teacher preferences               #
 #--------------------------------------------------#
-st.write("<div style='height: 2cm;'></div>", unsafe_allow_html=True)
+st.write("<div style='height: 1.5cm;'></div>", unsafe_allow_html=True)
 st.subheader(translations[lang_code]["upload_teacher"])
 teacher_file = st.file_uploader(translations[lang_code]["upload_teacher_desc"], type=["csv"], key ="teacher_file")
 
 if teacher_file is None:
     if st.checkbox(translations[lang_code]["Show example"], key="teacher_example"):
         st.write(teacherSample.head())
+else:
+    teachers_df = pd.read_csv(teacher_file)
+    st.dataframe(teachers_df, height=200)
 
 # Step 2.1: Collect teacher preferences (optional)   #
 st.write("<div style='height: 1cm;'></div>", unsafe_allow_html=True)
@@ -78,13 +90,10 @@ with st.expander(translations[lang_code]["teacher_survey_sample"]):
 #--------------------------------------------------#
 # Step 4: Run matching                             #
 #--------------------------------------------------#
-st.write("<div style='height: 2cm;'></div>", unsafe_allow_html=True)
+st.write("<div style='height: 1.5cm;'></div>", unsafe_allow_html=True)
 st.subheader(translations[lang_code]["run_matching"])
 if st.button(translations[lang_code]["run_matching_button"]):
     if teacher_file and course_file:
-        teachers_df = pd.read_csv(teacher_file)
-        courses_df = pd.read_csv(course_file)
-        
         teachers = {}
         for _, row in teachers_df.iterrows():
             if lang_code == "en":
@@ -136,7 +145,7 @@ if st.button(translations[lang_code]["run_matching_button"]):
                 "Teacher": "老师",
                 "Assigned Courses": "教授课程",
             }, inplace=True)
-            st.table(teacher_results_df[["老师", "教授课程"]])
+            st.dataframe(teacher_results_df[["老师", "教授课程"]],height=200)
         st.download_button(translations[lang_code]["download_teachers"], teacher_csv, "teacher_assignments.csv", "text/csv")
         st.write(translations[lang_code]["course_preview:"])
         if lang_code == "zh":
@@ -144,7 +153,7 @@ if st.button(translations[lang_code]["run_matching_button"]):
                 "Course": "课程",
                 "Assigned Teachers": "授课老师",
             }, inplace=True)
-            st.table(course_results_df[["课程", "授课老师"]])
+            st.dataframe(course_results_df[["课程", "授课老师"]],height=200)
         st.download_button(translations[lang_code]["download_courses"], course_csv, "course_enrollments.csv", "text/csv")  
                 
     else:

@@ -33,7 +33,6 @@ st.session_state["lang_code"] = lang_code
 
 st.title(translations[lang_code]["title"])
 st.write(translations[lang_code]["intro"])
-st.write("<div style='height: 2cm;'></div>", unsafe_allow_html=True)
 # Load sample data
 studentSample, schoolSample = load_sample(lang_code)
 
@@ -41,6 +40,7 @@ studentSample, schoolSample = load_sample(lang_code)
 #--------------------------------------------------#
 # Step 1: Upload student preferences and CPA       #
 #--------------------------------------------------#
+st.write("<div style='height: 1.5cm;'></div>", unsafe_allow_html=True)
 st.subheader(translations[lang_code]["upload_student"])
 student_file = st.file_uploader(translations[lang_code]["upload_student_desc"], type=["csv"])
 
@@ -49,20 +49,21 @@ if student_file is None:
         st.write(studentSample.head())
 else:
     students_df = pd.read_csv(student_file)
+    st.write(students_df.head())
     students = {}
     for _, row in students_df.iterrows():
         if lang_code == "en":
-            preferences = [row[f"choice{i}"] for i in range(1, len(row) - 2) if pd.notna(row[f"choice{i}"])]
-            students[row["name"]] = Student(row["name"], row["GPA"], preferences)
+            preferences = [row[f"Choice{i}"] for i in range(1, len(row) - 1) if pd.notna(row[f"Choice{i}"])]
+            students[row["StudentName"]] = Student(row["StudentName"], row["GPA"], preferences)
         elif lang_code == "zh":
-            preferences = [row[f"选择{i}"] for i in range(1, len(row) - 2) if pd.notna(row[f"选择{i}"])]
+            preferences = [row[f"选择{i}"] for i in range(1, len(row) - 1) if pd.notna(row[f"选择{i}"])]
             students[row["姓名"]] = Student(row["姓名"], row["GPA"], preferences)
 
 
 #--------------------------------------------------#
 # Step 2: Upload school quota                      #
 #--------------------------------------------------#
-st.write("<div style='height: 2cm;'></div>", unsafe_allow_html=True)
+st.write("<div style='height: 1.5cm;'></div>", unsafe_allow_html=True)
 st.subheader(translations[lang_code]["upload_school"])
 school_file = st.file_uploader(translations[lang_code]["upload_school_desc"], type=["csv"])
 
@@ -71,8 +72,9 @@ if school_file is None:
         st.write(schoolSample.head())
 else:
     schools_df = pd.read_csv(school_file)
+    st.write(schools_df.head())
     if lang_code == "en":
-        schools = {row["name"]: School(row["name"], int(row["quota"])) for _, row in schools_df.iterrows()}
+        schools = {row["SchoolName"]: School(row["SchoolName"], int(row["Quota"])) for _, row in schools_df.iterrows()}
     elif lang_code == "zh":
         schools = {row["学校名称"]: School(row["学校名称"], int(row["名额"])) for _, row in schools_df.iterrows()}
 
@@ -80,26 +82,54 @@ else:
 #--------------------------------------------------#
 # Step 3: Run matching                             #
 #--------------------------------------------------#
-st.write("<div style='height: 2cm;'></div>", unsafe_allow_html=True)
+st.write("<div style='height: 1.5cm;'></div>", unsafe_allow_html=True)
 st.subheader(translations[lang_code]["run_matching"])
 if st.button(translations[lang_code]["run_matching"]):
     if student_file and school_file:                
-        student_assignments, school_enrollments = deferred_acceptance(students, schools)
+        student_assignments, school_enrollments, output_text = deferred_acceptance(students, schools)
         
         student_assignments_df = pd.DataFrame(list(student_assignments.items()), columns=["Student", "Assigned School"])
-        school_enrollments_df = pd.DataFrame([(school, student) for school, students in school_enrollments.items() for student in students], columns=["School", "Enrolled Student"])
+        school_enrollments_df = pd.DataFrame(list(school_enrollments.items()), columns=["School", "Enrolled Student"])
+        # school_enrollments_df = pd.DataFrame([(school, student) for school, students in school_enrollments.items() for student in students], columns=["School", "Enrolled Student"])
         
         st.success(translations[lang_code]["success_message"])
         student_csv = student_assignments_df.to_csv(index=False).encode("utf-8")
         school_csv = school_enrollments_df.to_csv(index=False).encode("utf-8")
 
+        
         st.write(translations[lang_code]["student_preview:"])
         st.table(student_assignments_df)
-        st.download_button(translations[lang_code]["download_students"], student_csv, "student_assignments.csv", "text/csv")
         st.write(translations[lang_code]["school_preview:"])
         st.table(school_enrollments_df)
-        st.download_button(translations[lang_code]["download_schools"], school_csv, "school_enrollments.csv", "text/csv")  
-                
+
+        # Create a button to export the results
+        st.divider()
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.download_button(
+                translations[lang_code]["download_students"],
+                student_csv,
+                "student_assignments.csv",
+                "text/csv",
+                on_click="ignore"
+            )
+        with col2:
+            st.download_button(
+                translations[lang_code]["download_schools"],
+                school_csv,
+                "school_enrollments.csv",
+                "text/csv",
+                on_click="ignore"
+            )
+        
+        with col3:
+            st.download_button(
+                label="Download Matching Processes",
+                data='\n'.join(map(str, output_text)) if isinstance(output_text, list) else str(output_text),
+                file_name="output.txt",
+                mime="text/plain",
+                on_click="ignore"
+            )
     else:
         st.error(translations[lang_code]["error_message"])
 

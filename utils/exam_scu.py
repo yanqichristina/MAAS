@@ -58,6 +58,8 @@ def assign_proctors(teachers, classes):
     5. When assigning joint proctor, balance workload across teachers.
     """
     
+    # sort teachers by workload
+    teachers.sort(key=lambda t: t.workload)
 
     # Assign exam_id to classes
     for cls in classes:
@@ -213,7 +215,7 @@ def assign_proctors(teachers, classes):
                         other_teachers.remove(teacher)
                         break
         
-        other_teachers.sort(key=lambda t: t.workload)
+        # other_teachers.sort(key=lambda t: t.workload)
 
         # other_teachers_df = pd.DataFrame([{
         #     "Name": teacher.name,
@@ -238,6 +240,9 @@ def assign_proctors(teachers, classes):
     # for c in classes:
     #     st.write(cls.course, cls.class_id, cls.main_proctor, cls.joint_proctor)
 
+    # sort teachers by workload
+    teachers.sort(key=lambda t: t.workload)
+    
     # Assign joint proctor for each exam_id
     for exam in exam_classes_list:
         exam_classes = exam["exam_classes"]
@@ -253,7 +258,8 @@ def assign_proctors(teachers, classes):
             teaching_teachers = set()
             for cls in exam_classes:
                 teaching_teachers.update(cls.teachers)
-            teaching_teachers = [t for t in teachers if t.name in teaching_teachers]
+            teaching_teachers = [t for t in teachers if t.name in teaching_teachers and
+                                 t.can_be_proctor(exam_date, exam_time)]
             other_teachers = [t for t in teachers if t not in teaching_teachers and 
                               (t.preferred_location == exam_location or pd.isna(t.preferred_location)) and
                               t.can_be_proctor(exam_date, exam_time)]
@@ -296,7 +302,7 @@ def assign_proctors(teachers, classes):
                                 break
 
             # Sort teachers by workload
-            other_teachers.sort(key=lambda t: t.workload)
+            # other_teachers.sort(key=lambda t: t.workload)
 
 
             # Assign joint proctor based on student count
