@@ -50,8 +50,7 @@ if course_file is None:
         st.write(courseSample.head())
 else:
     courses_df = pd.read_csv(course_file)
-    st.dataframe(courses_df, height=200)
-
+    st.dataframe(courses_df, height=200, hide_index=True)
 
 #--------------------------------------------------#
 # Step 2: Upload teacher preferences               #
@@ -65,7 +64,7 @@ if teacher_file is None:
         st.write(teacherSample.head())
 else:
     teachers_df = pd.read_csv(teacher_file)
-    st.dataframe(teachers_df, height=200)
+    st.dataframe(teachers_df, height=200, hide_index=True)
 
 # Step 2.1: Collect teacher preferences (optional)   #
 st.write("<div style='height: 1cm;'></div>", unsafe_allow_html=True)

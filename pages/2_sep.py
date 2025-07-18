@@ -46,10 +46,10 @@ student_file = st.file_uploader(translations[lang_code]["upload_student_desc"], 
 
 if student_file is None:
     if st.checkbox(translations[lang_code]["Show example"], key="student_example"):
-        st.write(studentSample.head())
+        st.dataframe(studentSample, hide_index=True)
 else:
     students_df = pd.read_csv(student_file)
-    st.write(students_df.head())
+    st.dataframe(students_df, height=200, hide_index=True)
     students = {}
     for _, row in students_df.iterrows():
         if lang_code == "en":
@@ -69,10 +69,10 @@ school_file = st.file_uploader(translations[lang_code]["upload_school_desc"], ty
 
 if school_file is None:
     if st.checkbox(translations[lang_code]["Show example"], key="school_example"):
-        st.write(schoolSample.head())
+        st.dataframe(schoolSample, hide_index=True)
 else:
     schools_df = pd.read_csv(school_file)
-    st.write(schools_df.head())
+    st.dataframe(schools_df, hide_index=True)
     if lang_code == "en":
         schools = {row["SchoolName"]: School(row["SchoolName"], int(row["Quota"])) for _, row in schools_df.iterrows()}
     elif lang_code == "zh":
@@ -98,9 +98,9 @@ if st.button(translations[lang_code]["run_matching"]):
 
         
         st.write(translations[lang_code]["student_preview:"])
-        st.table(student_assignments_df)
+        st.dataframe(student_assignments_df, hide_index=True)
         st.write(translations[lang_code]["school_preview:"])
-        st.table(school_enrollments_df)
+        st.dataframe(school_enrollments_df, hide_index=True)
 
         # Create a button to export the results
         st.divider()
