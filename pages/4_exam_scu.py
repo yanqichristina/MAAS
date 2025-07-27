@@ -29,8 +29,18 @@ def load_sample():
     return teacherSample, exam1Sample
 
 
+if "lang_code" not in st.session_state:
+    st.session_state["lang_code"] = "en"
+# Language selection dropdown in the sidebar, default to English if not selecte
+with st.sidebar:
+    lang = st.selectbox("Select Language / 选择语言", ["中文", "English"], index=1 if st.session_state["lang_code"] == "en" else 0)
+if lang == "English":
+    lang_code = "en"    
+elif lang == "中文":
+    lang_code = "zh"
+st.session_state["lang_code"] = lang_code
 
-lang_code = st.session_state["lang_code"]
+
 st.title(translations[lang_code]['title'])
 st.write(translations[lang_code]['intro'])
 st.write("<div style='height: 2cm;'></div>", unsafe_allow_html=True)

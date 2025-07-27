@@ -24,9 +24,11 @@ def load_sample(lang_code):
     return teacherSample, courseSample
 
 
-lang_code = st.session_state["lang_code"]
+if "lang_code" not in st.session_state:
+    st.session_state["lang_code"] = "en"
+# Language selection dropdown in the sidebar, default to English if not selecte
 with st.sidebar:
-    lang = st.selectbox("Select Language / 选择语言", ["中文", "English"], index=1 if lang_code == "en" else 0)
+    lang = st.selectbox("Select Language / 选择语言", ["中文", "English"], index=1 if st.session_state["lang_code"] == "en" else 0)
 if lang == "English":
     lang_code = "en"    
 elif lang == "中文":

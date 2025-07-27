@@ -1,6 +1,6 @@
-﻿StudentName,GPA,Choice1,Choice2,Choice3
-student1,4,school1, school3, school2
-student2,3.8,school1, school2, school3
-student3,3.7,school2, school3, school1
-student4,3.4,school2, school1, school3
-student5,3.1,school3, school1, school2
+﻿StudentName,GPA,Choice1,Choice2,Choice3,Choice4,Choice5
+student1,4,school1, school3, school2,,
+student2,3.8,school1, school2, school3,School4,
+student3,3.7,school2, school3, school1,,
+student4,3.4,school2, school1, school3,School5,School4
+student5,3.1,school3, school1,,,

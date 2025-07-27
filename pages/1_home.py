@@ -19,8 +19,11 @@ st.markdown(
 
 st.markdown("<br><br>", unsafe_allow_html=True)
 
+if "lang_code" not in st.session_state:
+    st.session_state["lang_code"] = "en"
+# Language selection dropdown in the sidebar, default to English if not selecte
 with st.sidebar:
-    lang = st.selectbox("Select Language / 选择语言", ["中文", "English"], index=1)
+    lang = st.selectbox("Select Language / 选择语言", ["中文", "English"], index=1 if st.session_state["lang_code"] == "en" else 0)
 if lang == "English":
     lang_code = "en"    
 elif lang == "中文":

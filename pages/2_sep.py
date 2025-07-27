@@ -22,9 +22,11 @@ def load_sample(lang_code):
         schoolSample = pd.read_csv("data_sample/sep/school_sample_zh.csv")
     return studentSample, schoolSample
 
-lang_code = st.session_state["lang_code"]
+if "lang_code" not in st.session_state:
+    st.session_state["lang_code"] = "en"
+# Language selection dropdown in the sidebar, default to English if not selecte
 with st.sidebar:
-    lang = st.selectbox("Select Language / 选择语言", ["中文", "English"], index=1 if lang_code == "en" else 0)
+    lang = st.selectbox("Select Language / 选择语言", ["中文", "English"], index=1 if st.session_state["lang_code"] == "en" else 0)
 if lang == "English":
     lang_code = "en"    
 elif lang == "中文":
@@ -74,9 +76,9 @@ else:
     schools_df = pd.read_csv(school_file)
     st.dataframe(schools_df, hide_index=True)
     if lang_code == "en":
-        schools = {row["SchoolName"]: School(row["SchoolName"], int(row["Quota"])) for _, row in schools_df.iterrows()}
+        schools = {row["SchoolName"]: School(row["SchoolName"], int(row["Quota"]), row["minGPA"]) for _, row in schools_df.iterrows()}
     elif lang_code == "zh":
-        schools = {row["学校名称"]: School(row["学校名称"], int(row["名额"])) for _, row in schools_df.iterrows()}
+        schools = {row["学校名称"]: School(row["学校名称"], int(row["名额"]), row["最低绩点"]) for _, row in schools_df.iterrows()}
 
 
 #--------------------------------------------------#
@@ -86,21 +88,22 @@ st.write("<div style='height: 1.5cm;'></div>", unsafe_allow_html=True)
 st.subheader(translations[lang_code]["run_matching"])
 if st.button(translations[lang_code]["run_matching"]):
     if student_file and school_file:                
-        student_assignments, school_enrollments, output_text = deferred_acceptance(students, schools)
+        student_assignments, school_enrollments, matching_process_df = deferred_acceptance(students, schools)
         
         student_assignments_df = pd.DataFrame(list(student_assignments.items()), columns=["Student", "Assigned School"])
         school_enrollments_df = pd.DataFrame(list(school_enrollments.items()), columns=["School", "Enrolled Student"])
         # school_enrollments_df = pd.DataFrame([(school, student) for school, students in school_enrollments.items() for student in students], columns=["School", "Enrolled Student"])
         
         st.success(translations[lang_code]["success_message"])
-        student_csv = student_assignments_df.to_csv(index=False).encode("utf-8")
-        school_csv = school_enrollments_df.to_csv(index=False).encode("utf-8")
-
-        
         st.write(translations[lang_code]["student_preview:"])
         st.dataframe(student_assignments_df, hide_index=True)
         st.write(translations[lang_code]["school_preview:"])
         st.dataframe(school_enrollments_df, hide_index=True)
+
+        
+        student_csv = student_assignments_df.to_csv(index=False).encode("utf-8")
+        school_csv = school_enrollments_df.to_csv(index=False).encode("utf-8")
+        matching_process_csv = matching_process_df.to_csv(index=False).encode("utf-8")
 
         # Create a button to export the results
         st.divider()
@@ -124,10 +127,10 @@ if st.button(translations[lang_code]["run_matching"]):
         
         with col3:
             st.download_button(
-                label="Download Matching Processes",
-                data='\n'.join(map(str, output_text)) if isinstance(output_text, list) else str(output_text),
-                file_name="output.txt",
-                mime="text/plain",
+                "Download Matching Processes",
+                matching_process_csv,
+                "matching_processes.csv",
+                "text/csv",
                 on_click="ignore"
             )
     else:

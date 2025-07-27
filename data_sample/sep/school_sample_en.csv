@@ -1,4 +1,4 @@
-﻿SchoolName,Quota
-school1,1
-school2,1
-school3,2
+﻿SchoolName,Quota,minGPA
+school1,1,
+school2,1,4.5
+school3,2,4
