@@ -99,10 +99,10 @@ if "page" in query_params:
     st.write(f"User clicked on: {clicked_button}")
     # Add navigation or logic based on the button clicked
     if clicked_button == "sep":
-        st.switch_page("pages/2_sep_nus.py")
+        st.switch_page("modules/2_sep_nus.py")
     elif clicked_button == "course":
-        st.switch_page("pages/3_course.py")
+        st.switch_page("modules/3_course.py")
     elif clicked_button == "exam":
-        st.switch_page("pages/4_exam_scu2.py")
+        st.switch_page("modules/4_exam_scu2.py")
 
 
