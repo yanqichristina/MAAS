@@ -143,7 +143,7 @@ st.set_page_config(layout="wide")
 # if st.session_state.get('logged_in') is True:
 pg = st.navigation(
     {   
-        "Modules": [home, course_page, exam_page, sep_page],
+        "Modules": [home, sep_page],
         # "Settings": [logout_page, reset_pwd_page],
     }
 )

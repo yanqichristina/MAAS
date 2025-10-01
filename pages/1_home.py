@@ -22,13 +22,13 @@ st.markdown("<br><br>", unsafe_allow_html=True)
 if "lang_code" not in st.session_state:
     st.session_state["lang_code"] = "en"
 # Language selection dropdown in the sidebar, default to English if not selecte
-with st.sidebar:
-    lang = st.selectbox("Select Language / 选择语言", ["中文", "English"], index=1 if st.session_state["lang_code"] == "en" else 0)
-if lang == "English":
-    lang_code = "en"    
-elif lang == "中文":
-    lang_code = "zh"
-st.session_state["lang_code"] = lang_code
+# with st.sidebar:
+#     lang = st.selectbox("Select Language / 选择语言", ["中文", "English"], index=1 if st.session_state["lang_code"] == "en" else 0)
+# if lang == "English":
+lang_code = "en"    
+# # elif lang == "中文":
+# #     lang_code = "zh"
+# st.session_state["lang_code"] = lang_code
 
 modulelist = [translations[lang_code]["sep"], translations[lang_code]["course"]]
 
@@ -75,21 +75,21 @@ button_style = """
 # Use custom HTML buttons with JavaScript for user interactions
 st.markdown(button_style, unsafe_allow_html=True)
 
-
-st.markdown(
-    f'<a href="?page=course" class="custom-button" target="_self">{translations[lang_code]["course"]}</a>',
-    unsafe_allow_html=True,
-)
-
-st.markdown(
-    f'<a href="?page=exam" class="custom-button" target="_self">{translations[lang_code]["exam"]}</a>',
-    unsafe_allow_html=True,
-)
-
 st.markdown(
     f'<a href="?page=sep" class="custom-button" target="_self">{translations[lang_code]["sep"]}</a>',
     unsafe_allow_html=True,
 )
+
+st.markdown(
+    f'<a href="?page=course" class="custom-button" target="_self" disabled style="opacity: 0.6; pointer-events: none;">{translations[lang_code]["course"]}</a>',
+    unsafe_allow_html=True,
+)
+
+st.markdown(
+    f'<a href="?page=exam" class="custom-button" target="_self" disabled style="opacity: 0.6; pointer-events: none;">{translations[lang_code]["exam"]}</a>',
+    unsafe_allow_html=True,
+)
+
 
 # Detect which button was clicked
 query_params = st.query_params

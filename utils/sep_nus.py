@@ -127,7 +127,7 @@ def deferred_acceptance(students, programs):
                                     'Reason': rejected_reason
                                 }
                                 matching_process_df = pd.concat([matching_process_df, pd.DataFrame([new_row])], ignore_index=True)
-                                st.write(f"{removed_student[1]} (GPA:{removed_student[0]}) is rejected by {school_name} because {rejected_reason}")
+                                st.write(f"{removed_student[1]} (Total Score:{removed_student[0]}) is rejected by {school_name} because {rejected_reason}")
 
                                 if removed_student[1] != student.name:
                                     unmatched_students.append(students[removed_student[1]])

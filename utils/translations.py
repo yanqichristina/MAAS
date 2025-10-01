@@ -24,12 +24,12 @@ translations_sep = {
         "title": "🎓 Student Exchange Programs",
         "intro": """Description: 
             Each student selects up to 5 schools in order of preference.
-            Each school set a quota for exchange students. 
-            The matching assistant match schools with students based on student preferences, GPA, and school quota.""",
+            Each school set a quota for exchange students. The quota may be semester-specific and has additonal requirements for major, min GPA, nationality etc. 
+            The matching assistant match schools with students based on student preferences, total score, school quota and requirements.""",
         "upload_student": "Step 1: Upload Student Data",
-        "upload_student_desc": "Student data includes student names, GPA, and school preferences. Check 'Show example' to view sample data.",
+        "upload_student_desc": "Student data includes student names, GPA, total score and school-semester preferences. Check 'Show example' to view sample data.",
         "upload_school": "Step 2: Upload School Data",
-        "upload_school_desc": "School data includes school names and quotas. Check 'Show example' to view sample data.",
+        "upload_school_desc": "School data includes school names, quotas, and requirements. Check 'Show example' to view sample data.",
         "Show example": "Show example",
         "run_matching": "Step 3: Run Matching",
         "student_preview:": "Student Assignments Preview:",

@@ -25,13 +25,13 @@ def load_sample(lang_code):
 if "lang_code" not in st.session_state:
     st.session_state["lang_code"] = "en"
 # Language selection dropdown in the sidebar, default to English if not selecte
-with st.sidebar:
-    lang = st.selectbox("Select Language / 选择语言", ["中文", "English"], index=1 if st.session_state["lang_code"] == "en" else 0)
-if lang == "English":
-    lang_code = "en"    
-elif lang == "中文":
-    lang_code = "zh"
-st.session_state["lang_code"] = lang_code
+# with st.sidebar:
+#     lang = st.selectbox("Select Language / 选择语言", ["中文", "English"], index=1 if st.session_state["lang_code"] == "en" else 0)
+# if lang == "English":
+lang_code = "en"    
+# elif lang == "中文":
+#     lang_code = "zh"
+# st.session_state["lang_code"] = lang_code
 
 st.title(translations[lang_code]["title"])
 st.write(translations[lang_code]["intro"])
@@ -149,8 +149,8 @@ if st.button(translations[lang_code]["run_matching"]):
 
         # append the results to the input dataframes and allow users to download the results as csv files
         students_df["Assigned ProgramID"] = students_df["*EmplID"].map(student_assignments)
-        students_df["Assigned University"] = students_df["Assigned ProgramID"].map(programs).apply(lambda x: x.schoolName if x else None)
-        students_df['PU required semester'] = students_df['Assigned ProgramID'].map(programs).apply(lambda x: x.sem if x else None)
+        students_df["Assigned University"] = students_df["Assigned ProgramID"].map(programs).apply(lambda x: x.schoolName if pd.notna(x) else None)
+        students_df['PU required semester'] = students_df['Assigned ProgramID'].map(programs).apply(lambda x: x.sem if pd.notna(x) else None)
         schools_df["Enrolled Students"] = schools_df["ProgramID"].map(program_enrollments).apply(lambda x: ", ".join(x) if x else None)
         schools_df["Enrolled Students Count"] = schools_df["Enrolled Students"].apply(lambda x: len(x.split(", ")) if x else 0)
         schools_df["Quota Remaining"] = schools_df["Quota"] - schools_df["Enrolled Students Count"]
