@@ -1,8 +1,51 @@
 ﻿*EmplID,Seniority,GPA,Total Score,Destination Ranking,*Ext. Study Period,Ext. Study Location,Student Major,Singapore Residency Status
-46N,3,4.8,8.3,1,NUS Sem 1,E0000000316 - Waseda University (Japan),English Lit (Hons),Malaysia
+46N,3,4.8,8.3,1,NUS Sem 1,E0000000316 - Waseda University (Japan),English Lit (Hons),Singapore Citizen
 27X,2,5,8.25,1,NUS Sem 1,"E0000001188 - University College London, University of London (United Kingdom)",Geography (Hons),Singapore Citizen
 27X,2,5,8.25,2,NUS Sem 1,E0000000701 - The University of British Columbia (Canada),Geography (Hons),Singapore Citizen
 27X,2,5,8.25,3,NUS Sem 1,E0000001255 - University of Glasgow (United Kingdom),Geography (Hons),Singapore Citizen
-10B,2,4.83,7.83,1,Any available semester,"E0000001411 - Georgetown University, Washington D.C. (United States)",History (Hons),China
-10B,2,4.83,7.83,2,NUS Sem 1,E0000000684 - University of Toronto (Canada),History (Hons),China
-10B,2,4.83,7.83,3,Any available semester,E0000000328 - Keio University (Japan),History (Hons),China
+27X,2,5,8.25,4,NUS Sem 1,E0000001258 - The University of Edinburgh (United Kingdom),Geography (Hons),Singapore Citizen
+10B,2,4.83,7.83,1,Any available semester,"E0000001411 - Georgetown University, Washington D.C. (United States)",History (Hons),Singapore Citizen
+10B,2,4.83,7.83,2,NUS Sem 1,E0000000684 - University of Toronto (Canada),History (Hons),Singapore Citizen
+10B,2,4.83,7.83,3,Any available semester,E0000000328 - Keio University (Japan),History (Hons),Singapore Citizen
+10B,2,4.83,7.83,4,Any available semester,E0000000326 - Kyoto University (Japan),History (Hons),Singapore Citizen
+10B,2,4.83,7.83,5,Any available semester,"E0000001300 - Boston College, Massachusetts (United States)",History (Hons),Singapore Citizen
+28A,2,5,7.5,1,NUS Sem 2,E0000002416 - Sciences Po (France),History (Hons),Singapore Citizen
+28A,2,5,7.5,2,NUS Sem 2,E0000001368 - University of Pennsylvania (United States),History (Hons),Singapore Citizen
+28A,2,5,7.5,3,NUS Sem 2,"E0000001440 - Cornell University, New York (United States)",History (Hons),Singapore Citizen
+28A,2,5,7.5,4,NUS Sem 2,E0000001439 - University of California (United States),History (Hons),Singapore Citizen
+28A,2,5,7.5,5,NUS Full Year,E0000001260 - Durham University (United Kingdom),History (Hons),Singapore Citizen
+48M,2,4.5,7.5,1,NUS Sem 1,E0000000623 - The University of Queensland (Australia),Psychology (Hons),Singapore Citizen
+48M,2,4.5,7.5,2,NUS Sem 1,E0000000637 - The Australian National University (Australia),Psychology (Hons),Singapore Citizen
+48M,2,4.5,7.5,3,NUS Sem 2,E0000000629 - The University of Melbourne (Australia),Psychology (Hons),Singapore Citizen
+48M,2,4.5,7.5,4,NUS Sem 2,E0000000620 - The University of Sydney (Australia),Psychology (Hons),Singapore Citizen
+48M,2,4.5,7.5,5,NUS Sem 2,E0000000628 - Monash University (Australia),Psychology (Hons),Singapore Citizen
+72L,2,4.31,6.81,1,Any available semester,"E0000000544 - Korea University (Korea, Republic of)",Comms & New Media (Hons),Singapore Citizen
+72L,2,4.31,6.81,2,Any available semester,"E0000000540 - Ewha Women's University,Seoul (Korea, Republic of)",Comms & New Media (Hons),Singapore Citizen
+72L,2,4.31,6.81,3,Any available semester,"E0000000548 - Yonsei University (Korea, Republic of)",Comms & New Media (Hons),Singapore Citizen
+72L,2,4.31,6.81,4,Any available semester,E0000006015 - National Yang Ming Chiao Tung University (Taiwan),Comms & New Media (Hons),Singapore Citizen
+72L,2,4.31,6.81,5,Any available semester,E0000000587 - National Chengchi University (Taiwan),Comms & New Media (Hons),Singapore Citizen
+88N,2,4.17,6.67,1,Any available semester,E0000000419 - Erasmus University (Netherlands),Comms & New Media (Hons),Malaysia
+88N,2,4.17,6.67,2,Any available semester,E0000000421 - University of Amsterdam (Netherlands),Comms & New Media (Hons),Malaysia
+88N,2,4.17,6.67,3,Any available semester,E0000000701 - The University of British Columbia (Canada),Comms & New Media (Hons),Malaysia
+88N,2,4.17,6.67,4,Any available semester,E0000001197 - Loughborough University (United Kingdom),Comms & New Media (Hons),Malaysia
+88N,2,4.17,6.67,5,Any available semester,E0000000629 - The University of Melbourne (Australia),Comms & New Media (Hons),Malaysia
+77M,2,4.44,6.94,1,NUS Sem 1,E0000001048 - Fudan University (China),Psychology (Hons),China
+77M,2,4.44,6.94,2,NUS Sem 1,E0000001017 - Zhejiang University (China),Psychology (Hons),China
+77M,2,4.44,6.94,3,NUS Sem 1,"E0000000008 - The University of Hong Kong (Hong Kong SAR, China)",Psychology (Hons),China
+77M,2,4.44,6.94,4,NUS Sem 1,E0000001026 - Xiamen University (China),Psychology (Hons),China
+77M,2,4.44,6.94,5,NUS Sem 1,E0000000629 - The University of Melbourne (Australia),Psychology (Hons),China
+04U,2,4.36,6.86,1,Any available semester,E0000002416 - Sciences Po (France),Political Science (Hons),Singapore Citizen
+04U,2,4.36,6.86,2,Any available semester,E0000001439 - University of California (United States),Political Science (Hons),Singapore Citizen
+04U,2,4.36,6.86,3,Any available semester,"E0000001411 - Georgetown University, Washington D.C. (United States)",Political Science (Hons),Singapore Citizen
+04U,2,4.36,6.86,4,Any available semester,E0000001368 - University of Pennsylvania (United States),Political Science (Hons),Singapore Citizen
+04U,2,4.36,6.86,5,Winter,E0000001379 - Northwestern University (United States),Political Science (Hons),Singapore Citizen
+13H,2,4.75,7.25,1,Spring,E0000001379 - Northwestern University (United States),Economics (Hons),Singapore Citizen
+13H,2,4.75,7.25,2,NUS Sem 2,"E0000001402 - University of Illinois, Urbana-Champaign (United States)",Economics (Hons),Singapore Citizen
+13H,2,4.75,7.25,3,NUS Sem 2,E0000001380 - University of Notre Dame (United States),Economics (Hons),Singapore Citizen
+13H,2,4.75,7.25,4,NUS Sem 2,E0000001331 - University of Wisconsin-Madison (United States),Economics (Hons),Singapore Citizen
+13H,2,4.75,7.25,5,NUS Sem 2,E0000001446 - Boston University (United States),Economics (Hons),Singapore Citizen
+00W,2,4.88,7.38,1,NUS Sem 1,E0000000684 - University of Toronto (Canada),Psychology (Hons),Singapore Permanent Resident
+00W,2,4.88,7.38,2,NUS Sem 1,"E0000001188 - University College London, University of London (United Kingdom)",Psychology (Hons),Singapore Permanent Resident
+00W,2,4.88,7.38,3,NUS Sem 1,E0000001439 - University of California (United States),Psychology (Hons),Singapore Permanent Resident
+00W,2,4.88,7.38,4,NUS Sem 1,E0000000694 - McGill University (Canada),Psychology (Hons),Singapore Permanent Resident
+00W,2,4.88,7.38,5,Fall,E0000001379 - Northwestern University (United States),Psychology (Hons),Singapore Permanent Resident

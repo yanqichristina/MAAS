@@ -190,3 +190,112 @@ if st.button(translations[lang_code]["run_matching"]):
     else:
         st.error(translations[lang_code]["error_message"])
 
+# Allow user to see a sample run with sample data
+if st.button("Run Matching with Sample Data"):
+    
+    # construct students and programs object from sample csv
+    students_df = studentSample.copy()
+    students = {}
+    grouped = students_df.groupby("*EmplID")
+    for student_name, group in grouped:
+        preferences = [
+            [row["Ext. Study Location"], row["*Ext. Study Period"]] 
+            for _, row in sorted(group.iterrows(), key=lambda x: x[1]["Destination Ranking"])
+            ]
+        students[student_name] = Student(
+            student_name, 
+            group.iloc[0]["GPA"], 
+            group.iloc[0]["Total Score"],
+            group.iloc[0]["Student Major"].replace(' (Hons)', ''),
+            group.iloc[0]["Seniority"],
+            group.iloc[0]["Singapore Residency Status"],
+            preferences
+            )
+    
+    schools_df = schoolSample.copy()
+    programs = {
+        row["ProgramID"]: 
+        Program(
+            row["SchoolName"],
+            row["Semester"],
+            row["Major (incl)"].split(", ") if not pd.isna(row["Major (incl)"]) else [],
+            row["Major (excl)"].split(", ") if not pd.isna(row["Major (excl)"]) else [],
+            int(row["Quota"]),
+            row["minGPA"],
+            row["Seniority"],
+            row["Nationality (excl)"].split(", ") if not pd.isna(row["Nationality (excl)"]) else []
+        )            
+        for _, row in schools_df.iterrows()}
+
+    student_assignments, program_enrollments, matching_process_df = deferred_acceptance(students, programs)
+
+    # clean results for student assignments and school enrollments        
+    student_assignments_df = pd.DataFrame(list(student_assignments.items()), columns=["Student", "ProgramID"])
+    student_assignments_df = student_assignments_df.merge(
+        schools_df[['ProgramID', 'SchoolName', 'Semester']].rename(columns={'Semester': 'PU required semester'}), 
+        on="ProgramID",
+        how="left"
+        )
+    
+    # find the student's preferred exchange semester in student.preferences for the assigned school
+    student_assignments_df["Student preferred semester"] = student_assignments_df["Student"].apply(lambda x: students[x].preferences[students[x].current_proposal - 1][1])
+
+    program_enrollments_df = pd.DataFrame(list(program_enrollments.items()), columns=["ProgramID", "Enrolled Student"])
+    program_enrollments_df = program_enrollments_df.merge(
+        schools_df[['ProgramID', 'SchoolName', 'Semester', 'Quota']].rename(columns={'Semester': 'PU required semester'}), 
+        on="ProgramID", 
+        how="left"
+        )
+    
+    # add a column to show the number of students enrolled in each school
+    program_enrollments_df["Students Count"] = program_enrollments_df["Enrolled Student"].apply(lambda x: len(x) if x else 0)
+    program_enrollments_df["Quota Remaining"] = program_enrollments_df["Quota"] - program_enrollments_df["Students Count"]
+    
+    st.success(translations[lang_code]["success_message"])
+    st.write(translations[lang_code]["student_preview:"])
+    st.dataframe(student_assignments_df, hide_index=True)
+    st.write(translations[lang_code]["school_preview:"])
+    st.dataframe(program_enrollments_df[program_enrollments_df["Enrolled Student"].apply(lambda x: len(x) > 0)], hide_index=True)
+
+
+    # append the results to the input dataframes and allow users to download the results as csv files
+    students_df["Assigned ProgramID"] = students_df["*EmplID"].map(student_assignments)
+    students_df["Assigned University"] = students_df["Assigned ProgramID"].map(programs).apply(lambda x: x.schoolName if pd.notna(x) else None)
+    students_df['PU required semester'] = students_df['Assigned ProgramID'].map(programs).apply(lambda x: x.sem if pd.notna(x) else None)
+    schools_df["Enrolled Students"] = schools_df["ProgramID"].map(program_enrollments).apply(lambda x: ", ".join(x) if x else None)
+    schools_df["Enrolled Students Count"] = schools_df["Enrolled Students"].apply(lambda x: len(x.split(", ")) if x else 0)
+    schools_df["Quota Remaining"] = schools_df["Quota"] - schools_df["Enrolled Students Count"]
+    
+    student_csv = students_df.to_csv(index=False).encode("utf-8")
+    school_csv = schools_df.to_csv(index=False).encode("utf-8")
+    matching_process_csv = matching_process_df.to_csv(index=False).encode("utf-8")
+
+    # Create a button to export the results
+    st.divider()
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.download_button(
+            translations[lang_code]["download_students"],
+            student_csv,
+            "student_assignments.csv",
+            "text/csv",
+            on_click="ignore"
+        )
+    with col2:
+        st.download_button(
+            translations[lang_code]["download_schools"],
+            school_csv,
+            "school_enrollments.csv",
+            "text/csv",
+            on_click="ignore"
+        )
+    
+    with col3:
+        st.download_button(
+            "Download Matching Processes",
+            matching_process_csv,
+            "matching_processes.csv",
+            "text/csv",
+            on_click="ignore"
+        )
+
